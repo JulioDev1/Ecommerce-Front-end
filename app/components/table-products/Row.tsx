@@ -1,6 +1,11 @@
 import { AdminProductsDto } from "@/app/management-products/Dto/adminProducts";
+import { IconTrash } from "@tabler/icons-react";
 
-export default function Row(props:AdminProductsDto){
+interface onClick {
+    onClick: (id:number)=> void;
+}
+
+export default function Row(props:AdminProductsDto & onClick){
     return(
         <tbody>
             <tr>
@@ -35,8 +40,11 @@ export default function Row(props:AdminProductsDto){
                 </td>
                 
                 <td className="p-4 border-b border-gray-100">
-                    <p className="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                    <p className="flex items-center justify-between  font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                     {props.productType}
+                    <button onClick={()=> props.onClick(props.id)} className="bg-red-500 p-1 rounded-sm cursor-pointer">
+                        <IconTrash color="white" width={20} height={20}/>
+                    </button>
                     </p>
                 </td>
                 
