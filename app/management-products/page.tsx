@@ -6,7 +6,7 @@ import Row from "../components/table-products/Row";
 import {DeleteProduct, GetAdminProducts} from "../services/products";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import PageContainer from "../components/pages/page-container";
 import PageNumber from "../components/pages/pageNumber";
 import { useState } from "react";
@@ -16,9 +16,7 @@ export default function Page(){
     const token = useSelector((state:RootState)=> state.auth.token);
     const  [selectedPage, setSelectedPage] = useState<number>(1);
     const {data, error} = useSWR(token ? ['get-admin-products', token, selectedPage] : null,()=> GetAdminProducts(token as string, selectedPage))
-    
-    useSWR(token ? ['delete-product-by-id', token, selectedPage] : null,()=> DeleteProduct(token as string, selectedPage))
-    
+        
     if(!data) return <div>loading...</div>
     if(error) return <div>error</div>
 
@@ -47,7 +45,7 @@ export default function Page(){
 
     const deleteProduct = async (id:number) => {
         await DeleteProduct(token as string, id);   
-        await GetAdminProducts(token as string, selectedPage);
+        mutate(['get-admin-products', token, selectedPage])
     }
 
     return (
