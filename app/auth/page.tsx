@@ -17,10 +17,11 @@ export default function Page(){
     const token = useSelector((state:RootState)=> state.auth.token)
     const router = useRouter();
 
-
-    if(token){
-        router.push('/management-products')
-    }
+    useEffect(()=>{
+        if(token){
+            router.push('/management-products')
+        }
+    },[token, router])
     
     async function LoginSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
