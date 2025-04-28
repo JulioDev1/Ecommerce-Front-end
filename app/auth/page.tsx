@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { login } from "../store/authSlice";
 import { useRouter } from "next/navigation";
 import { RootState } from "../store/store";
+import GetUserLogged from "../services/user";
+import useSWR from "swr";
 import { useEffect } from "react";
 
 export default function Page(){
@@ -16,13 +18,19 @@ export default function Page(){
     const dispatch = useDispatch();
     const token = useSelector((state:RootState)=> state.auth.token)
     const router = useRouter();
+    const { data } = useSWR(token ? ['get-user', token] : null,()=> GetUserLogged(token as string))
 
     useEffect(()=>{
         if(token){
-            router.push('/management-products')
+            if(data){
+                if(data.role === 1 ) router.push('/management-products')
+                if(data.role === 0 ) router.push('/user-screen')
+            }
         }
-    },[token, router])
+    },[data, token, router])
     
+    console.log(data?.role);
+
     async function LoginSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -30,13 +38,10 @@ export default function Page(){
             email: formData.get('email') as string,
             password: formData.get('password') as string
         }
-        const response =  await Authenticate(data);
-        
+        const response =  await Authenticate(data);        
         if(response){
             dispatch(login(response.token))
-            router.push('/management-products');
         }
-        
     }
 
     return (
@@ -47,5 +52,5 @@ export default function Page(){
                 <Button text="Submit"/>
             </Form>
         </FormContainer>
-)
+    )
 }

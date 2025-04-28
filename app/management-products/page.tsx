@@ -25,7 +25,7 @@ export default function Page(){
         return Array(pages).fill(1).map((_,i)=> i+1);
     }
     
-    const  handlePageChange = async (page:number) => {
+    const handlePageChange = async (page:number) => {
         setSelectedPage(page);
         await GetAdminProducts(token as string, page);
         console.log(page);
