@@ -8,7 +8,7 @@ interface onClick {
 export default function Row(props:AdminProductsDto & onClick){
     return(
         <tbody>
-            <tr>
+            <tr className="border-1 rounded-2xl border-gray-100">
                 <td className="p-4 border-b border-gray-100">
                     <p className="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
                         {props.quantity}
@@ -22,9 +22,10 @@ export default function Row(props:AdminProductsDto & onClick){
                 </td>
 
                 <td className="p-4 border-b border-gray-100">
-                    <p className="font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
+                    <span className="font-sans flex gap-2 text-sm antialiased items-center rounded-xl font-medium leading-normal text-blue-gray-900">
                         {props.price}
-                    </p>
+                        <h1 className="text-green-900 bg-green-100 rounded-xl px-2 font-mono">R$</h1>
+                    </span>
                 </td>
                 
                 <td className="p-4 border-b border-gray-100">
