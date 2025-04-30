@@ -26,19 +26,22 @@ export default function Page(){
                 if(data.role === 1 ) router.push('/management-products')
                 if(data.role === 0 ) router.push('/user-screen')
             }
+            console.log(data?.role);
         }
     },[data, token, router])
-    
-    console.log(data?.role);
 
     async function LoginSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
+        
         const formData = new FormData(e.currentTarget);
+
         const data:LoginDto = {
             email: formData.get('email') as string,
             password: formData.get('password') as string
         }
+
         const response =  await Authenticate(data);        
+
         if(response){
             dispatch(login(response.token))
         }

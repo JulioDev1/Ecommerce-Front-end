@@ -59,7 +59,7 @@ export default function Page(){
             <PageContainer next={advancePage} prev={prevPage}>
                 {DoPages(data.totalItem).map((pageNumber, i) => (
                     <PageNumber 
-                        selected={ selectedPage === pageNumber ? 'bg-black text-white' : 'bg-white text-black'} 
+                        selected={ selectedPage === pageNumber ? 'bg-black text-white' : 'bg-white text-black' } 
                         onClick={()=> handlePageChange(pageNumber)} 
                         key={i} 
                         pageIndexes={pageNumber}
