@@ -12,7 +12,6 @@ import PageNumber from "../components/pages/pageNumber";
 import { useState } from "react";
 
 export default function Page(){
-
     const token = useSelector((state:RootState)=> state.auth.token);
     const  [selectedPage, setSelectedPage] = useState<number>(1);
     const {data, error} = useSWR(token ? ['get-admin-products', token, selectedPage] : null,()=> GetAdminProducts(token as string, selectedPage))
@@ -59,7 +58,7 @@ export default function Page(){
             <PageContainer next={advancePage} prev={prevPage}>
                 {DoPages(data.totalItem).map((pageNumber, i) => (
                     <PageNumber 
-                        selected={ selectedPage === pageNumber ? 'bg-black text-white' : 'bg-white text-black'} 
+                        selected={ selectedPage === pageNumber ? 'bg-black text-white' : 'bg-white text-black' } 
                         onClick={()=> handlePageChange(pageNumber)} 
                         key={i} 
                         pageIndexes={pageNumber}

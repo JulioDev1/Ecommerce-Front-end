@@ -15,6 +15,6 @@ export default async function Authenticate (login:LoginDto){
         body: JSON.stringify(login)
     
     })
-
+    console.log(response)
     return await response.json();
 }
