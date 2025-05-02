@@ -4,7 +4,7 @@ interface SideBarProps {
 }
 export default function SideBar({children}:SideBarProps){
     return(
-        <aside className="w-1/5 h-full  bg-gray-light">
+        <aside className="w-1/5 h-full bg-white">
             {children}
         </aside>
     )

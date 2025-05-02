@@ -24,7 +24,7 @@ export default function Page(){
         if(token){
             if(data){
                 if(data.role === 1 ) router.push('/management-products')
-                if(data.role === 0 ) router.push('/user-screen')
+                if(data.role === 0 ) router.push('/ecommerce/user-cart')
             }
             console.log(data?.role);
         }
